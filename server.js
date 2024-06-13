@@ -49,13 +49,9 @@ app.use(cors(corsOptions));
 
 
 // Routes----------------------------------------------------------------------------------------------------------------------------------------
-app.use(express.static(path.join(__dirname, './client/build')));
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './client/build', 'index.html'))
-});
 
 app.use('/',FetchPartnerData);
+// app.use('/',Partneruploadroute);
 app.use('/',AuthenticationRoute);
 app.use('/',PartnerUserOrderRoute);
 app.use('/',PackageBookingRoute);
@@ -65,6 +61,11 @@ app.use('/',RazorpayRoute);
 app.use('/',MailRoute);
 
 //----------------------------------------------------------------------------------------------------------------------------------------
+app.use(express.static(path.join(__dirname, './client/build')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './client/build', 'index.html'))
+});
 
 app.listen(4000, () => {
     console.log('Server is running on http://localhost:4000');
