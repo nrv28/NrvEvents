@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const session = require('express-session');
+const path = require('path');
 const app = express();
 
 //-------------------------------------------------------------------------------------------------------------------------------------
@@ -17,7 +18,7 @@ connectDB();
 
 
 const FetchPartnerData = require('./routes/FetchPartnerData');
-const Partneruploadroute = require('./routes/PartnerDataUpload');
+// const Partneruploadroute = require('./routes/PartnerDataUpload');
 const AuthenticationRoute = require('./routes/AuthenticationRoute');
 const PartnerUserOrderRoute = require('./routes/PartnerUserOrder');
 const PackageBookingRoute = require('./routes/PackageBookingRoute');
@@ -50,7 +51,7 @@ app.use(cors(corsOptions));
 // Routes----------------------------------------------------------------------------------------------------------------------------------------
 
 app.use('/',FetchPartnerData);
-app.use('/',Partneruploadroute);
+// app.use('/',Partneruploadroute);
 app.use('/',AuthenticationRoute);
 app.use('/',PartnerUserOrderRoute);
 app.use('/',PackageBookingRoute);
@@ -60,6 +61,12 @@ app.use('/',RazorpayRoute);
 app.use('/',MailRoute);
 
 //----------------------------------------------------------------------------------------------------------------------------------------
+// Only for Deploy Purpose
+app.use(express.static(path.join(__dirname, './client/build')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './client/build', 'index.html'))
+});
 
 app.listen(4000, () => {
     console.log('Server is running on http://localhost:4000');
