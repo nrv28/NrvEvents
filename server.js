@@ -48,9 +48,11 @@ app.use(cors(corsOptions));
 
 
 // Routes----------------------------------------------------------------------------------------------------------------------------------------
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './client/build', 'index.html'))
+});
 
 app.use('/',FetchPartnerData);
-app.use('/',Partneruploadroute);
 app.use('/',AuthenticationRoute);
 app.use('/',PartnerUserOrderRoute);
 app.use('/',PackageBookingRoute);
