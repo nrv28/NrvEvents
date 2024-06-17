@@ -21,47 +21,44 @@ const storage = multer.diskStorage({
   
   
   router.post('/submit', upload.single('photo'), async (req, res) => {
-    const imageBuffer = fs.readFileSync(req.file.path);
+    try {
+      const imageBuffer = fs.readFileSync(req.file.path);
+      const base64Image = imageBuffer.toString('base64');
   
-    
-    const base64Image = imageBuffer.toString('base64');
-  
-    const partnerData = new PartnerDataSchema({
-      name: req.body.name,
-      address: req.body.address,
-      phone: req.body.phone,
-      photo: base64Image,
-      cityname: req.body.cityname,
-      email: req.body.email,
-      password: req.body.password,
-    });
-
-    const savedPartnerData = await partnerData.save();
-
-    // Create reviews and ratings data
-    const reviewsRating = new ReviewsRatingSchema({
-      reviewscount: 0,
-      stars: 0,
-      partnerid: savedPartnerData._id.toString(),
-      cityname: req.body.cityname,
-      review: []
-    });
-
-    await reviewsRating.save()
-      .then(() => {
-        res.send('Data uploaded successfully');
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send('Error uploading data');
+      const partnerData = new PartnerDataSchema({
+        name: req.body.name,
+        address: req.body.address,
+        phone: req.body.phone,
+        photo: base64Image,
+        cityname: req.body.cityname,
+        email: req.body.email,
+        password: req.body.password,
       });
+  
+      const savedPartnerData = await partnerData.save();
+  
+      const reviewsRating = new ReviewsRatingSchema({
+        reviewscount: 0,
+        stars: 0,
+        partnerid: savedPartnerData._id.toString(),
+        cityname: req.body.cityname,
+        review: []
+      });
+  
+      await reviewsRating.save();
+  
+      res.send('Data uploaded successfully');
+    } catch (err) {
+      console.error('Error uploading data:', err);
+      res.status(500).send('Error uploading data');
+    }
   });
   
-  router.get('/',(req,res)=>{
-    const filePath = path.resolve(__dirname, '../upload.html');
+  // router.get('/',(req,res)=>{
+  //   const filePath = path.resolve(__dirname, '../upload.html');
  
-    res.sendFile(filePath);
-  })
+  //   res.sendFile(filePath);
+  // })
 
     
 module.exports = router;
