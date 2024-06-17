@@ -18,7 +18,7 @@ connectDB();
 
 
 const FetchPartnerData = require('./routes/FetchPartnerData');
-// const Partneruploadroute = require('./routes/PartnerDataUpload');
+const Partneruploadroute = require('./routes/PartnerDataUpload');
 const AuthenticationRoute = require('./routes/AuthenticationRoute');
 const PartnerUserOrderRoute = require('./routes/PartnerUserOrder');
 const PackageBookingRoute = require('./routes/PackageBookingRoute');
@@ -51,7 +51,7 @@ app.use(cors(corsOptions));
 // Routes----------------------------------------------------------------------------------------------------------------------------------------
 
 app.use('/',FetchPartnerData);
-// app.use('/',Partneruploadroute);
+app.use('/',Partneruploadroute);
 app.use('/',AuthenticationRoute);
 app.use('/',PartnerUserOrderRoute);
 app.use('/',PackageBookingRoute);
