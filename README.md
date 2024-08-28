@@ -49,6 +49,11 @@ HTTP error 401 for prompt `overview`
 
 ---
 
+##  Deployed On Render
+
+Click on This Link to view Deployed Version https://nrvevents.onrender.com
+
+---
 ##  Features
 
 HTTP error 401 for prompt `features`
