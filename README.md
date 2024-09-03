@@ -4,6 +4,12 @@
 <p align="center">
     <h1 align="center">NRV EVENTS</h1>
 </p>
+
+## Project Video
+
+[![Traffic Project Video](https://img.youtube.com/vi/AV_6C3_mkGM/0.jpg)](https://youtu.be/AV_6C3_mkGM)
+
+
 <p align="center">
     <em>HTTP error 401 for prompt `slogan`</em>
 </p>
